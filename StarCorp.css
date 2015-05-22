@@ -1,0 +1,143 @@
+.menuButton {
+	border-style:solid;
+	border-color:#000000;
+	border-width: 1px;
+	color:black;
+	Margin-left:2px;
+	Margin-right:2px;
+	padding-right:1px;
+	padding-left:1px;
+	background-color:#F0F0F0;
+}
+
+.menuButton:hover {
+	background-color:#AAAAAA;
+}
+
+.menuButton:active {
+	background-color:#888888;
+}
+
+#menuButtons {
+	background-color:#E0E0E0;
+	height:20px;
+	width:800px;
+	Padding-top:2px;
+}
+
+.navButton {
+	border-style:solid;
+	border-color:#000000;
+	border-width: 1px;
+	color:black;
+	Margin-left:2px;
+	Margin-right:2px;
+	padding-right:1px;
+	padding-left:1px;
+	background-color:#F0F0F0;
+}
+
+.navButton:hover {
+	background-color:#AAAAAA;
+}
+
+.navButton:active {
+	background-color:#888888;
+}
+
+#playerShip {
+	background-color:#DDFFFF;
+	height:200px;
+	width:400px;
+	Padding-top:2px;
+	float:left;
+	text-align:left;
+}
+
+#enemyShip {
+	background-color:#FFDDFF;
+	height:200px;
+	width:400px;
+	Padding-top:2px;
+	float:left;
+	text-align:right;
+}
+
+#resources {
+	background-color:#DDFFDD;
+	height:20px;
+	width:800px;
+	Padding-top:2px;
+	clear:both;
+	text-align:left;
+}
+
+#navPanel {
+	background-color:#FFFFDD;
+	height:400px;
+	width:100px;
+	Padding-top:2px;
+	float:left;
+	text-align:left;
+	line-height:130%;
+}
+
+#mainPanel {
+	background-color:#FFDDDD;
+	height:400px;
+	width:500px;
+	Padding-top:2px;
+	float:left;
+	text-align:left;
+	line-height:120%;
+}
+
+#logPanel {
+	background-color:#DDDDFF;
+	height:400px;
+	width:200px;
+	padding-top:2px;
+	float:left;
+	text-align:center;
+	font-size:80%;
+	color:#707070;
+}
+
+#logPanel:first-line {
+	font-weight:bold;
+	font-size:100%;
+	color:#000000;
+}
+
+#bottomBar {
+	background-color:#DDDDDD;
+	height:20px;
+	width:800px;
+	Padding-top:2px;
+	clear:both;
+	text-align:center;
+}
+
+.shipSystem {
+	border-style:none;
+}
+
+.shipSystem:hover {
+	background-color:#AAAAAA;
+}
+
+.selectedSystem {
+	border-style:solid;
+	border-color:#00C0C0;
+	border-width: 2px;
+	color:black;
+}
+
+.playerDamageText {
+	position: absolute;
+    left: 20px;
+    top: 50px;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 2s, opacity 2s linear;
+}

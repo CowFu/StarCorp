@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+	<link rel="stylesheet" type="text/css" href="StarCorp.css" />
+	<TITLE>Star Corp</TITLE>
+</HEAD>
+<BODY>
+	<script type="text/javascript" src="StarCorp.js"></script>
+	<div id="menuButtons">
+	<span class="menuButton" type="button" onClick="saveClick()" id="saveButton">Save</span>
+	<span class="menuButton" type="button" onClick="loadClick()" id="loadButton">Load</span>
+	<span class="menuButton" type="button" onClick="resetClick()" id="resetButton">Reset</span>
+	</div>	
+	<div id="playerShip">
+		<pre id="shipPic">
+ __
+ | \_
+=[_|_)--._____
+=[,--,-------'
+[|_/"'       
+		</pre>
+	</div>
+	<div id="enemyShip">
+		
+	</div>
+	<div id="resources">
+		<table width=100%>
+			<tr>
+				<td>$<span id="money">0</span></td>
+				<td>&#937<span id="science">0</span></td>
+				<td>ETA:&nbsp<span id="eta">00:00</span></td>
+			</tr></table></div>
+	
+	<div id="navPanel">
+		<span class="navButton" type="button" onClick="shipClick()" id="shipButton">Ship</span><br>
+		<span class="navButton" type="button" onClick="crewClick()" id="crewButton">Crew</span><br>
+		<span class="navButton" type="button" onClick="missionClick()" id="missionButton">Mission</span><br>
+		<span class="navButton" type="button" onClick="scienceClick()" id="scienceButton">Science</span><br>
+		<span class="navButton" type="button" onClick="shopClick()" id="shopButton">Shop</span><br>
+		<span class="navButton" type="button" onClick="helpClick()" id="shopButton">Help</span><br>
+	</div>
+	
+	<div id="mainPanel">  
+	
+	</div>
+	
+	<div id="logPanel">
+		<span id="log"></span>
+	</div>
+	
+	<div id="bottomBar">
+	</div>
+	
+</BODY>
+</HTML>
