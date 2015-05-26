@@ -5,10 +5,28 @@
 var money = 0;
 var science = 0;
 var log = ["","","","","","","","","",""];
-
+var tick = 0;
 //determines the current navmenu so only existing html elements will be updated
 //0:ship 1:crew 2:mission 3:science 4:shop 5:help 10:nothing default
 var currentMenu = 10; 
+var flavor = {
+	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"]
+};
+
+//controls the current gamestate, 0:travel 1:combat 2:exploration 3:science 4:results
+var gameState = 4;
+//general purpose toggle that swaps every tick
+var toggle = true;
+
+
+var mission = {
+	distance: 0,
+	enemySheilds: 0,
+	explorationDistance: 0,
+	scienceReamining: 0,
+	missionLevel: 3,
+	missionType: 1
+};
 
 var playerShip = {
 	weapons: 0,
@@ -19,8 +37,17 @@ var playerShip = {
 	maxEngines: 3,
 	sensors: 0,
 	maxSensors: 3,
+	sensorStrength: 0,
 	currentBoost: 0,
-	boostBonus: 1
+	boostBonus: 1,
+	maxCrew: 3,
+	topSpeed: 0,
+	currentCrew: 1,
+	currentShields: 20,
+	maxCurrentShields: 20,
+	weaponDelay: 5,
+	weaponStrength: 0,
+	weaponTimer: 0
 };
 
 function testClick(number){ //test function please ignore
@@ -83,7 +110,14 @@ function shipClick() { //Navbar ship button
 	var htmlOutput = "<span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(0)\" id=\"selectWeapons\">Weapons</span>&nbsp<span id=\"barWeapons\"></span><br> \
 					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(1)\" id=\"selectShields\">Shields</span>&nbsp<span id=\"barShields\"></span><br> \
 					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(2)\" id=\"selectEngines\">Engines</span>&nbsp<span id=\"barEngines\"></span><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(3)\" id=\"selectSensors\">Sensors</span>&nbsp<span id=\"barSensors\"></span><br>";
+					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(3)\" id=\"selectSensors\">Sensors</span>&nbsp<span id=\"barSensors\"></span><p> \
+					  Weapon Power:<span id=\"statsWeaponPower\"></span><br> \
+					  Weapon Delay:<span id=\"statsWeaponDelay\"></span><br> \
+					  Current Shields:<span id=\"statsCurrentShield\"></span><br> \
+					  Max Shields:<span id=\"statsMaxShield\"></span><br> \
+					  Top Speed:<span id=\"statsSpeed\"></span><br> \
+					  Sensor Strength:<span id=\"statsSensors\"></span><br> \
+					  " ;
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 	systemSelect(playerShip.currentBoost, 1);
@@ -113,7 +147,7 @@ function scienceClick() { //Navbar science button
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
-function shopClick() { //Navbar shop button
+function hangerClick() { //Navbar shop button
 	currentMenu = 4;
 	var htmlOutput = "<h3>Shop menu!</h3>";
 	
@@ -204,11 +238,24 @@ function statUpdate() { //recalculates the live stats of the ship
 			toLog("problem with switch/case");
 	}
 	
+	playerShip.weaponStrength = Math.pow(playerShip.weapons, 3);
+	playerShip.weaponDelay = Math.round(Math.pow(.9,playerShip.weapons)*5);
+	playerShip.maxCurrentShields = Math.pow(playerShip.shields * 10, 2);
+	playerShip.topSpeed = Math.round(Math.pow(playerShip.engines * 3,3));
+	playerShip.sensorStrength = Math.pow(playerShip.sensors, 3);
+	
 	if(currentMenu == 0) {
 		document.getElementById("barWeapons").innerHTML = returnBar(playerShip.weapons, playerShip.maxWeapons);
 		document.getElementById("barShields").innerHTML = returnBar(playerShip.shields, playerShip.maxShields);
 		document.getElementById("barEngines").innerHTML = returnBar(playerShip.engines, playerShip.maxEngines);
-		document.getElementById("barSensors").innerHTML = returnBar(playerShip.sensors, playerShip.maxSensors);		
+		document.getElementById("barSensors").innerHTML = returnBar(playerShip.sensors, playerShip.maxSensors);
+		document.getElementById("statsWeaponPower").innerHTML = playerShip.weaponStrength;
+		document.getElementById("statsWeaponDelay").innerHTML = playerShip.weaponDelay;
+		document.getElementById("statsCurrentShield").innerHTML = playerShip.currentShields;
+		document.getElementById("statsMaxShield").innerHTML = playerShip.maxCurrentShields;
+		document.getElementById("statsSpeed").innerHTML = playerShip.topSpeed;
+		document.getElementById("statsSensors").innerHTML = playerShip.sensorStrength;
+		
 	}
 }
 
@@ -225,9 +272,42 @@ function drawEnemy(number) {
 	document.getElementById("enemyShip").innerHTML = output;
 }
 
+function missionControl() {
+	if (gameState == 0 ) { //Travel
+		
+		mission.distance = mission.distance - playerShip.topSpeed;
+		
+		if(mission.distance < 0) {
+			mission.distance = 0;
+		}
+		
+		document.getElementById("missionDistance").innerHTML = mission.distance;
+	} else if (gameState == 1 ) { //combat
+		
+	} else if (gameState == 2 ) { //exploration
+		
+	} else if (gameState == 3 ) { //science  
+		
+	} 
+	
+	if (gameState == 4 ) { //results decides next mission and resets travel timer
+		toLog("Mission Completed");
+		mission.missionType = Math.round(Math.random() * 2)+1;
+		mission.distance = Math.floor((Math.round(((Math.random() * 3) + 2)*10)/10) * (Math.pow(mission.missionLevel * 5, 2)));  
+		toLog(mission.missionType + " new mission");
+		gameState = 0;
+	}
+	
+	
+}
+
 window.setInterval(function(){ //Game Loop - Tick set on .5 seconds
 	document.getElementById("money").innerHTML = money;
 	statUpdate();
+	missionControl();
 	//toLog(playerShip.weapons + " " + playerShip.shields + " " +  playerShip.engines + " " +  playerShip.sensors);
-	//toLog(currentMenu);
+	//toLog(flavor.crewNames[tick]);
+	//toLog(Math.round(Math.random() * 3));
+	tick++;
+	
 }, 500);
