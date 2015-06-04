@@ -9,8 +9,24 @@ var tick = 0;
 //determines the current navmenu so only existing html elements will be updated
 //0:ship 1:crew 2:mission 3:science 4:shop 5:help 10:nothing default
 var currentMenu = 10; 
+
 var flavor = {
-	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"]
+	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"],
+	playerShips:[" __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
+				 "Ship 1",
+				 "Ship 2",
+				 "Ship 3",
+				 "Ship 4"],
+				//Space
+	enemyShips:["*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
+				//Enemy small fighter
+				"\n\n\n__  \n/_|  \n.'----().__]=\n',----,-.__]=\n\\_|  ",
+				//Flying Saucer
+				"|         \n.-\"^\"-.      \n/_....._\     \n.-\"`         `\"-. \n(  ooo  ooo  ooo  )\n'-.,_________,.-' ",
+				"Ship 3",
+				"Ship 4"]			 
+	
+	
 };
 
 //controls the current gamestate, 0:travel 1:combat 2:exploration 3:science 4:results
@@ -74,12 +90,10 @@ function toLog(newLog) { //adds a new log entry and moves all older log entries 
 
 function saveClick() { //menubar save button
 	toLog("Saved!");
-	drawEnemy(100);
 }
 
 function loadClick() { //Menubar load button
 	toLog("Loaded");
-	drawEnemy(0);
 }
 
 function resetClick() { //Menubar reset button
@@ -158,6 +172,27 @@ function helpClick() { //Navbar help button
 	currentMenu = 5;
 	var htmlOutput = "<h3>Welcome to Star Corp!</h3><p>Here I'll explain the basic controls of Star Corp and how to play the game, what science is, everything<p>maybe some pictures, it'll be great";
 	
+	document.getElementById("mainPanel").innerHTML = htmlOutput;
+}
+
+function devClick() {
+	currentMenu = 6;
+	var htmlOutput = "<h3>Dev Menu!</h3>";
+	htmlOutput += 	"<p>Draw Ships</p> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(0)\">EnemyShip0</span> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(1)\">1</span> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(2)\">2</span> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(3)\">3</span> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(4)\">4</span> \
+					 <span class=\"menuButton\" onClick=\"drawEnemy(500)\">Undefined</span><br><br> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(0)\">PlayerShip0</span> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(1)\">1</span> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(2)\">2</span> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(3)\">3</span> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(4)\">4</span> \
+					 <span class=\"menuButton\" onClick=\"drawPlayer(500)\">undefined</span> \
+					 <p>Add Money</p> ";
+					 
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
@@ -261,15 +296,24 @@ function statUpdate() { //recalculates the live stats of the ship
 
 function drawEnemy(number) {
 	output = "<pre id=\"shipPic\">";
-	switch (number) {
-		case 0: //smallship
-			output += "		 __  \n	    /_|  \n.'----().__]=\n',----,-.__]=\n	    \\_|  \n		";
-			break;
-		default: //stars - travel
-			output += "*         \n*                                            * \n\n*                         \n\n\n *   \n*                                  \n\n*                                                *     ";
-	};
+	if(flavor.enemyShips[number] != undefined){
+		output += flavor.enemyShips[number];
+	} else {
+		output += flavor.enemyShips[0];
+	}
 	output += "</pre>";
 	document.getElementById("enemyShip").innerHTML = output;
+}
+
+function drawPlayer(number) {
+	output = "<pre id=\"shipPic\">";
+	if(flavor.playerShips[number] != undefined){
+		output += flavor.playerShips[number];
+	} else {
+		output += flavor.playerShips[0];
+	}
+	output += "</pre>";
+	document.getElementById("playerShip").innerHTML = output;
 }
 
 function missionControl() {
@@ -301,13 +345,11 @@ function missionControl() {
 	
 }
 
+window.onload = devClick;
+
 window.setInterval(function(){ //Game Loop - Tick set on .5 seconds
 	document.getElementById("money").innerHTML = money;
 	statUpdate();
 	missionControl();
-	//toLog(playerShip.weapons + " " + playerShip.shields + " " +  playerShip.engines + " " +  playerShip.sensors);
-	//toLog(flavor.crewNames[tick]);
-	//toLog(Math.round(Math.random() * 3));
 	tick++;
-	
 }, 500);

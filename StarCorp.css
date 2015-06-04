@@ -2,6 +2,11 @@
 	
 }
 
+
+.table {
+	width:100%;
+}
+
 .menuButton {
 	border-style:solid;
 	border-color:#000000;
@@ -11,6 +16,7 @@
 	Margin-right:2px;
 	padding-right:1px;
 	padding-left:1px;
+	
 	background-color:#F0F0F0;
 }
 

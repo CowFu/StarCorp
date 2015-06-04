@@ -1,5 +1,7 @@
-<HTML>
+<!DOCTYPE html>
+<HTML lang="en">
 <HEAD>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="StarCorp.css" />
 	<TITLE>Star Corp</TITLE>
 </HEAD>
@@ -15,46 +17,39 @@
 </pre>
 	</div>
 	<div id="menuButtons">
-	<span class="menuButton" type="button" onClick="saveClick()" id="saveButton">Save</span>
-	<span class="menuButton" type="button" onClick="loadClick()" id="loadButton">Load</span>
-	<span class="menuButton" type="button" onClick="resetClick()" id="resetButton">Reset</span>
+	<span class="menuButton" onClick="saveClick()" id="saveButton">Save</span>
+	<span class="menuButton" onClick="loadClick()" id="loadButton">Load</span>
+	<span class="menuButton" onClick="resetClick()" id="resetButton">Reset</span>
 	</div>	
-	<div id="playerShip">
-		<pre id="shipPic">
- __
- | \_
-=[_|_)--._____
-=[,--,-------' 
-[|_/"'       
-		</pre>
-	</div>
+	<div id="playerShip"></div>
 	<div id="enemyShip">
 		<pre>
  _..._________________          ,          
 (\ [ ===----====--|__|) ___..--"_`--.._____
- `&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175| |""` [_""_-___________"_/
+ `&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;| |""` [_""_-___________"_/
 			| |   /..../`'-._.-'`      
 			____| |__/::..'_               
 		   |\ ".`"` '_____//\              
 		   `"'-.   """""  \\/              
-			&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175&#175                
+			&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;                
 </pre>
 	</div>
 	<div id="resources">
-		<table width=100%>
+		<table class="table">
 			<tr>
 				<td>$<span id="money">0</span></td>
-				<td>&#937<span id="science">0</span></td>
-				<td>Distance:&nbsp<span id="missionDistance">0</span>au</td>
+				<td>&#937;<span id="science">0</span></td>
+				<td>Distance:&nbsp;<span id="missionDistance">0</span>au</td>
 			</tr></table></div>
 	
 	<div id="navPanel">
-		<span class="navButton" type="button" onClick="shipClick()" id="shipButton">Ship</span><br>
-		<span class="navButton" type="button" onClick="crewClick()" id="crewButton">Crew</span><br>
-		<span class="navButton" type="button" onClick="missionClick()" id="missionButton">Mission</span><br>
-		<span class="navButton" type="button" onClick="scienceClick()" id="scienceButton">Science</span><br>
-		<span class="navButton" type="button" onClick="hangerClick()" id="shopButton">Hanger</span><br>
-		<span class="navButton" type="button" onClick="helpClick()" id="shopButton">Help</span><br>
+		<span class="navButton" onClick="shipClick()" id="shipButton">Ship</span><br>
+		<span class="navButton" onClick="crewClick()" id="crewButton">Crew</span><br>
+		<span class="navButton" onClick="missionClick()" id="missionButton">Mission</span><br>
+		<span class="navButton" onClick="scienceClick()" id="scienceButton">Science</span><br>
+		<span class="navButton" onClick="hangerClick()" id="shopButton">Hanger</span><br>
+		<span class="navButton" onClick="helpClick()" id="helpButton">Help</span><br>
+		<span class="navButton" onClick="devClick()" id="devButton">Developer</span><br>
 	</div>
 	
 	<div id="mainPanel">  
