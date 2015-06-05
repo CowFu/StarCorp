@@ -35,8 +35,8 @@
 
 .navButton {
 	border-style:solid;
-	border-color:#000000;
-	border-width: 1px;
+	border-radius:5px;
+	border-width: 2px;
 	color:black;
 	Margin-left:2px;
 	Margin-right:2px;
@@ -46,7 +46,7 @@
 }
 
 .navButton:hover {
-	background-color:#AAAAAA;
+	background-color:#CCCCCC;
 }
 
 .navButton:active {
@@ -56,7 +56,7 @@
 #playerShip {
 	/* background-color:#DDFFFF;*/
 	background-color:#000000;
-	color:#FFFFFF;
+	color:#DDD;
 	height:200px;
 	width:400px;
 	Padding-top:2px;
@@ -67,7 +67,7 @@
 #enemyShip {
 	/* background-color:#FFDDFF;*/
 	background-color:#000000;
-	color:#FFFFFF;
+	color:#DDD;
 	height:200px;
 	width:400px;
 	Padding-top:2px;
@@ -91,7 +91,7 @@
 	Padding-top:2px;
 	float:left;
 	text-align:left;
-	line-height:130%;
+	line-height:150%;
 }
 
 #mainPanel {
