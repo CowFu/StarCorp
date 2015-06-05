@@ -3,3 +3,30 @@ function loadup(){
 	drawEnemy(0);
 	drawPlayer(0);
 }
+
+function addCrew(number) {
+	
+	var returnString = "";
+		
+	Switch(number) {
+		case 0:
+			returnString += "Pilot LT. " 
+			break;
+		case 1:
+			returnString += "Science LT. " 
+			break;
+		case 2:
+			returnString += "Security LCDR. " 
+			break;
+		case 3:
+			returnString += "Navigator Lt. " 
+			break;
+		case 4:
+			returnString += "Engineer CDR. " 
+			break;
+		default:
+			returnString += "ENS Derp not found";
+	}
+	returnString+= flavor.crewNames[Math.floor(Math.random()*flavor.crewNames.length)];
+	toLog(returnString);
+}

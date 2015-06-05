@@ -13,20 +13,19 @@ var currentMenu = 10;
 var flavor = {
 	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"],
 	playerShips:["\n\n\n\n \\____\n~=|__o)\n /",
-				 " __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
-				 "Ship 2",
-				 "Ship 3",
-				 " _..._________________          ,\n(\ [ ===----====--|__|) ___..--\"_`--.._____\n `&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;| |\"\"` [_\"\"_-___________\"_/\n                | |   /..../`'-._.-'`\n            ____| |__/::..'_\n            |\ \".`\"` '_____\/\/\\\n            `\"'-.   \"\"\"\"\"  \\/\n                 &#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;"],
+				 "\n\n __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
+				 "\n[=====>\n[  (    _____\n \\__\\,-'//   `--._\n  [_/ ||,-----._  \\\\___\n  [_) |||  ()()   ~[___>\n  [_\\_||`-----'   //\n /  /'-.\\\\___,--'===(-\n[  (\n[=====>",
+				 "\n\n _..._________________          ,\n(\ [ ===----====--|__|) ___..--\"_`--.._____\n `&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;| |\"\"` [_\"\"_-___________\"_/\n                | |   /..../`'-._.-'`\n            ____| |__/::..'_\n            |\ \".`\"` '_____\/\/\\\n            `\"'-.   \"\"\"\"\"  \\/\n                 &#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;",
+				 "              /---------\\\n             |.---------,|\n|-^~--,      |'---------'|      _-'----',--#\n=~~--. |---/=|___________|=\\-~-|~~~~~~~~~|\n=____||| |[| |@@@+-+|@-@@| |-|#|==- ._--,|]-\n=~~~~||| |[| |@@@+-+|@-@@| |-|#|    '~=='|]-\n=__--' |---\\=|~~~~~~~~~~~|=/-~-|_________|\n|__,--'      |,---------,|    -=\\       /\n              \\_________/        \\_____/==:=--"],
 				//Space
 	enemyShips:["*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
 				//Enemy small fighter
 				"\n\n\n__  \n/_|  \n.'----().__]=\n',----,-.__]=\n\\_|  ",
 				//Flying Saucer
-				"|         \n.-\"^\"-.      \n/_....._\     \n.-\"`         `\"-. \n(  ooo  ooo  ooo  )\n'-.,_________,.-' ",
-				"Ship 3",
-				"Ship 4"]			 
-	
-	
+				"\n\n|         \n.-\"^\"-.      \n/_....._\     \n.-\"`         `\"-. \n(  ooo  ooo  ooo  )\n'-.,_________,.-' ",
+				"*  \n*                                          \n    .-''-'-.      \n  ,':::<_,-.`.    \n*             /):::,--,_>\\_\\   \n|::::(      \\_:|  \n|:::::`-.    /:|  \n \\`-.:::;  /::/   \n*                                `.(::::\\/:,'    \n    `-....-'      ",
+				"Ship 4"],
+	ranks:["Ensign", "LT", "CDR", "LCDR", "LTJG"]
 };
 
 //controls the current gamestate, 0:travel 1:combat 2:exploration 3:science 4:results
@@ -104,6 +103,7 @@ function resetClick() { //Menubar reset button
 	farmcost = 10;
 	log = ["","","","","","","","","",""];
 	currentLog = 0;
+	gameState = 4;
 	toLog("Reset");
 }
 
@@ -198,9 +198,44 @@ function devClick() {
 					 <span class=\"menuButton\" onClick=\"drawPlayer(500)\">undefined</span> \
 					 <p>Add Money</p> \
 					 <span class=\"menuButton\" onClick=\"addResource(0, 1000)\">$1000</span> \
-					 <span class=\"menuButton\" onClick=\"addResource(1, 100)\">&#937;100</span>";
+					 <span class=\"menuButton\" onClick=\"addResource(1, 100)\">&#937;100</span> \
+					 <p>Add Crew</p> \
+					 <span class=\"menuButton\" onClick=\"addCrew(0)\">Pilot</span> \
+					 <span class=\"menuButton\" onClick=\"addCrew(1)\">Science</span> \
+					 <span class=\"menuButton\" onClick=\"addCrew(2)\">Security</span> \
+					 <span class=\"menuButton\" onClick=\"addCrew(3)\">Navigator</span> \
+					 <span class=\"menuButton\" onClick=\"addCrew(4)\">Engineer</span>";
 					 
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
+}
+
+function addCrew(number) {
+	
+	var returnString = "";
+		
+	switch(number) {
+		case 0:
+			returnString += "Pilot " 
+			break;
+		case 1:
+			returnString += "Science " 
+			break;
+		case 2:
+			returnString += "Security " 
+			break;
+		case 3:
+			returnString += "Navigator " 
+			break;
+		case 4:
+			returnString += "Engineer " 
+			break;
+		default:
+			returnString += "NOT FOUND";
+	}
+	
+	returnString += flavor.ranks[Math.floor(Math.random()*flavor.ranks.length)] + " ";
+	returnString += flavor.crewNames[Math.floor(Math.random()*flavor.crewNames.length)];
+	toLog(returnString);
 }
 
 function systemSelect(choice, quiet) { //determines which system is boosted, second variable should be 1 if you don't want it sent to log
@@ -344,14 +379,11 @@ function missionControl() {
 	} 
 	
 	if (gameState == 4 ) { //results decides next mission and resets travel timer
-		toLog("Mission Completed");
+		toLog("New Mission");
 		mission.missionType = Math.round(Math.random() * 2)+1;
 		mission.distance = Math.floor((Math.round(((Math.random() * 3) + 2)*10)/10) * (Math.pow(mission.missionLevel * 5, 2)));  
-		toLog(mission.missionType + " new mission");
 		gameState = 0;
 	}
-	
-	
 }
 
 function loadup(){
@@ -363,7 +395,6 @@ function loadup(){
 window.onload = loadup;
 
 window.setInterval(function(){ //Game Loop - Tick set on .5 seconds
-
 	statUpdate();
 	missionControl();
 	tick++;

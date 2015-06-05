@@ -55,7 +55,8 @@
 
 #playerShip {
 	/* background-color:#DDFFFF;*/
-	
+	background-color:#000000;
+	color:#FFFFFF;
 	height:200px;
 	width:400px;
 	Padding-top:2px;
@@ -65,6 +66,8 @@
 
 #enemyShip {
 	/* background-color:#FFDDFF;*/
+	background-color:#000000;
+	color:#FFFFFF;
 	height:200px;
 	width:400px;
 	Padding-top:2px;
