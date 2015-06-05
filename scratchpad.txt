@@ -30,3 +30,11 @@ function addCrew(number) {
 	returnString+= flavor.crewNames[Math.floor(Math.random()*flavor.crewNames.length)];
 	toLog(returnString);
 }
+
+
+		document.getElementById("shipButton").style.backgroundColor = "#C0FFFF";
+		document.getElementById("crewButton").style.backgroundColor = "#FFC0FF";
+		document.getElementById("missionButton").style.backgroundColor = "#FFFFC0";
+		document.getElementById("scienceButton").style.backgroundColor = "#C0FFC0";
+		document.getElementById("cargoButton").style.backgroundColor = "#C0C0FF";
+		document.getElementById("helpButton").style.backgroundColor = "#C0C0C0";

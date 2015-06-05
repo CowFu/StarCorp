@@ -121,10 +121,10 @@ function returnBar(current, max) { //returns an ascii visualization between two 
 }
 
 function shipClick() { //Navbar ship button
-	currentMenu = 0;
-	var htmlOutput = "<span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(0)\" id=\"selectWeapons\">Weapons</span>&nbsp<span id=\"barWeapons\"></span><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(1)\" id=\"selectShields\">Shields</span>&nbsp<span id=\"barShields\"></span><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(2)\" id=\"selectEngines\">Engines</span>&nbsp<span id=\"barEngines\"></span><br> \
+	navSelect(0);
+	var htmlOutput = "<span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(0)\" id=\"selectWeapons\">Weapons</span>&nbsp<span id=\"barWeapons\"></span><br><br> \
+					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(1)\" id=\"selectShields\">Shields</span>&nbsp<span id=\"barShields\"></span><br><br> \
+					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(2)\" id=\"selectEngines\">Engines</span>&nbsp<span id=\"barEngines\"></span><br><br> \
 					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(3)\" id=\"selectSensors\">Sensors</span>&nbsp<span id=\"barSensors\"></span><p> \
 					  Weapon Power:<span id=\"statsWeaponPower\"></span><br> \
 					  Weapon Delay:<span id=\"statsWeaponDelay\"></span><br> \
@@ -143,41 +143,76 @@ function shipClick() { //Navbar ship button
 }
 
 function crewClick() { //Navbar crew button
-	currentMenu = 1;
+	navSelect(1);
 	var htmlOutput = "<h3>Crew menu!</h3>";
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
 function missionClick() { //Navbar mission button
-	currentMenu = 2;
+	navSelect(2);
 	var htmlOutput = "<h3>Mission menu!</h3>";
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
 function scienceClick() { //Navbar science button
-	currentMenu = 3;
+	navSelect(3);
 	var htmlOutput = "Science Menu";
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
 function cargoClick() { //Navbar shop button
-	currentMenu = 4;
+	navSelect(4);
 	var htmlOutput = "<h3>Shop menu!</h3>";
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
-function addResource(resource, number){
-	resources[resource] += number;
-}
-
 function helpClick() { //Navbar help button
-	currentMenu = 5;
+	navSelect(5);
 	var htmlOutput = "<h3>Welcome to Star Corp!</h3><p>Here I'll explain the basic controls of Star Corp and how to play the game, what science is, everything<p>maybe some pictures, it'll be great";
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
+}
+
+function navSelect(number) {
+	currentMenu = number;
+	
+	document.getElementById("shipButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("crewButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("missionButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("scienceButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("cargoButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("helpButton").style.backgroundColor = "#FFFFFF";
+
+	
+	switch (number) {
+		case 0:
+			document.getElementById("shipButton").style.backgroundColor = "#C0FFFF";
+			break;
+		case 1:
+			document.getElementById("crewButton").style.backgroundColor = "#FFC0FF";
+			break;
+		case 2:
+			document.getElementById("missionButton").style.backgroundColor = "#FFFFC0";
+			break;
+		case 3:
+			document.getElementById("scienceButton").style.backgroundColor = "#C0FFC0";
+			break;
+		case 4:
+			document.getElementById("cargoButton").style.backgroundColor = "#C0C0FF";
+			break;
+		case 5:
+			document.getElementById("helpButton").style.backgroundColor = "#C0C0C0";
+			break;
+		default:
+			toLog("navSelect broke or DevMenu");
+	}
+}
+
+function addResource(resource, number){
+	resources[resource] += number;
 }
 
 function devClick() {

@@ -43,10 +43,20 @@
 	padding-right:1px;
 	padding-left:1px;
 	background-color:#F0F0F0;
+	cursor: pointer; 
+	cursor: hand; 
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .navButton:hover {
 	background-color:#CCCCCC;
+	cursor: pointer; 
+	cursor: hand; 
 }
 
 .navButton:active {
@@ -131,7 +141,19 @@
 }
 
 .shipSystem {
-	border-style:none;
+	border-style:solid;
+	border-radius:4px;
+	border-width: 1px;
+	border-color: #C0C0C0;
+	background-color: #DDDDDD;
+	cursor: pointer; 
+	cursor: hand; 
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .shipSystem:hover {
@@ -140,9 +162,20 @@
 
 .selectedSystem {
 	border-style:solid;
-	border-color:#00C0C0;
+	border-radius:5px;
+	border-width: 2px;
+	border-color:#A00000;
 	border-width: 2px;
 	color:black;
+	background-color:#CCAAAA;
+	cursor: pointer; 
+	cursor: hand; 
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .playerDamageText {
