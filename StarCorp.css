@@ -2,7 +2,6 @@
 	
 }
 
-
 .table {
 	width:100%;
 }
@@ -16,7 +15,6 @@
 	Margin-right:2px;
 	padding-right:1px;
 	padding-left:1px;
-	
 	background-color:#F0F0F0;
 }
 
@@ -56,7 +54,8 @@
 }
 
 #playerShip {
-	background-color:#DDFFFF;
+	/* background-color:#DDFFFF;*/
+	
 	height:200px;
 	width:400px;
 	Padding-top:2px;
@@ -65,7 +64,7 @@
 }
 
 #enemyShip {
-	background-color:#FFDDFF;
+	/* background-color:#FFDDFF;*/
 	height:200px;
 	width:400px;
 	Padding-top:2px;
@@ -74,7 +73,7 @@
 }
 
 #resources {
-	background-color:#DDFFDD;
+	background-color:#E0E0E0;
 	height:20px;
 	width:800px;
 	Padding-top:2px;
@@ -83,7 +82,7 @@
 }
 
 #navPanel {
-	background-color:#FFFFDD;
+	/* background-color:#FFFFDD;*/
 	height:400px;
 	width:100px;
 	Padding-top:2px;
@@ -93,7 +92,7 @@
 }
 
 #mainPanel {
-	background-color:#FFDDDD;
+	/*background-color:#FFDDDD;*/
 	height:400px;
 	width:500px;
 	Padding-top:2px;
@@ -103,7 +102,7 @@
 }
 
 #logPanel {
-	background-color:#DDDDFF;
+	background-color:#EEEEFF;
 	height:400px;
 	width:200px;
 	padding-top:2px;
@@ -120,7 +119,7 @@
 }
 
 #bottomBar {
-	background-color:#DDDDDD;
+	background-color:#E0E0E0;
 	height:20px;
 	width:800px;
 	Padding-top:2px;

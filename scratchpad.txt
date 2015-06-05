@@ -1,0 +1,5 @@
+function loadup(){
+	//devClick();
+	drawEnemy(0);
+	drawPlayer(0);
+}

@@ -2,8 +2,8 @@
 //GPL v2.0 license https://www.gnu.org/licenses/gpl-2.0.txt
 //Author: Stephen Hanson 2015-05-21
 
-var money = 0;
-var science = 0;
+//0: money 1: science 2-n: Materials 
+var resources = [0,0,0,0,0,0];
 var log = ["","","","","","","","","",""];
 var tick = 0;
 //determines the current navmenu so only existing html elements will be updated
@@ -12,11 +12,11 @@ var currentMenu = 10;
 
 var flavor = {
 	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"],
-	playerShips:[" __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
-				 "Ship 1",
+	playerShips:["\n\n\n\n \\____\n~=|__o)\n /",
+				 " __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
 				 "Ship 2",
 				 "Ship 3",
-				 "Ship 4"],
+				 " _..._________________          ,\n(\ [ ===----====--|__|) ___..--\"_`--.._____\n `&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;| |\"\"` [_\"\"_-___________\"_/\n                | |   /..../`'-._.-'`\n            ____| |__/::..'_\n            |\ \".`\"` '_____\/\/\\\n            `\"'-.   \"\"\"\"\"  \\/\n                 &#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;"],
 				//Space
 	enemyShips:["*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
 				//Enemy small fighter
@@ -97,8 +97,9 @@ function loadClick() { //Menubar load button
 }
 
 function resetClick() { //Menubar reset button
-	money = 0;
-	science = 0;
+	for(i= 0;i<resources.length;i++){
+		resources[i] = 0;
+	}
 	farms = 0;
 	farmcost = 10;
 	log = ["","","","","","","","","",""];
@@ -161,11 +162,15 @@ function scienceClick() { //Navbar science button
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
-function hangerClick() { //Navbar shop button
+function cargoClick() { //Navbar shop button
 	currentMenu = 4;
 	var htmlOutput = "<h3>Shop menu!</h3>";
 	
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
+}
+
+function addResource(resource, number){
+	resources[resource] += number;
 }
 
 function helpClick() { //Navbar help button
@@ -191,7 +196,9 @@ function devClick() {
 					 <span class=\"menuButton\" onClick=\"drawPlayer(3)\">3</span> \
 					 <span class=\"menuButton\" onClick=\"drawPlayer(4)\">4</span> \
 					 <span class=\"menuButton\" onClick=\"drawPlayer(500)\">undefined</span> \
-					 <p>Add Money</p> ";
+					 <p>Add Money</p> \
+					 <span class=\"menuButton\" onClick=\"addResource(0, 1000)\">$1000</span> \
+					 <span class=\"menuButton\" onClick=\"addResource(1, 100)\">&#937;100</span>";
 					 
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
@@ -236,7 +243,9 @@ function statUpdate() { //recalculates the live stats of the ship
 	playerShip.engines = 0;
 	playerShip.sensors = 0;
 	playerShip.weapons = 0;
-		
+	
+	document.getElementById("money").innerHTML = resources[0];
+	document.getElementById("science").innerHTML = resources[1];
 	
 	switch(playerShip.currentBoost) {
 		
@@ -345,10 +354,16 @@ function missionControl() {
 	
 }
 
-window.onload = devClick;
+function loadup(){
+	devClick();
+	drawEnemy(0);
+	drawPlayer(0);
+}
+
+window.onload = loadup;
 
 window.setInterval(function(){ //Game Loop - Tick set on .5 seconds
-	document.getElementById("money").innerHTML = money;
+
 	statUpdate();
 	missionControl();
 	tick++;
