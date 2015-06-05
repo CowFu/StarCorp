@@ -73,6 +73,12 @@ function testClick(number){ //test function please ignore
 function writeLog() { //Outputs the current text log to the screen
 	var fullLog = "";
 	for (i = 0;i <= 9;i++) {
+		if(i == 0){
+			fullLog += "<strong><b>";
+		}
+		if(i == 1) {
+			fullLog += "</strong></b>";
+		}
 		fullLog += log[i];
 		if (log[i] != "") {fullLog += "<p>";}
 	}
@@ -179,12 +185,12 @@ function helpClick() { //Navbar help button
 function navSelect(number) {
 	currentMenu = number;
 	
-	document.getElementById("shipButton").style.backgroundColor = "#FFFFFF";
-	document.getElementById("crewButton").style.backgroundColor = "#FFFFFF";
-	document.getElementById("missionButton").style.backgroundColor = "#FFFFFF";
-	document.getElementById("scienceButton").style.backgroundColor = "#FFFFFF";
-	document.getElementById("cargoButton").style.backgroundColor = "#FFFFFF";
-	document.getElementById("helpButton").style.backgroundColor = "#FFFFFF";
+	document.getElementById("shipButton").style.backgroundColor = "";
+	document.getElementById("crewButton").style.backgroundColor = "";
+	document.getElementById("missionButton").style.backgroundColor = "";
+	document.getElementById("scienceButton").style.backgroundColor = "";
+	document.getElementById("cargoButton").style.backgroundColor = "";
+	document.getElementById("helpButton").style.backgroundColor = "";
 
 	
 	switch (number) {

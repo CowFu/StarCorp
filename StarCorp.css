@@ -38,7 +38,7 @@
 #menuButtons {
 	background-color:#E0E0E0;
 	height:20px;
-	width:800px;
+	width:90vw;
 	Padding-top:2px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .navButton:hover {
-	background-color:#CCCCCC;
+	background-color:#DDDDDD;
 	cursor: pointer; 
 	cursor: hand; 
 }
@@ -76,8 +76,9 @@
 	/* background-color:#DDFFFF;*/
 	background-color:#000000;
 	color:#DDD;
-	height:200px;
-	width:400px;
+	font-size:1.7vmin;
+	height:27vh;
+	width:45vw;
 	Padding-top:2px;
 	float:left;
 	text-align:left;
@@ -87,8 +88,9 @@
 	/* background-color:#FFDDFF;*/
 	background-color:#000000;
 	color:#DDD;
-	height:200px;
-	width:400px;
+	font-size:1.7vmin;
+	height:27vh;
+	width:45vw;
 	Padding-top:2px;
 	float:left;
 	text-align:right;
@@ -97,7 +99,7 @@
 #resources {
 	background-color:#E0E0E0;
 	height:20px;
-	width:800px;
+	width:90vw;
 	Padding-top:2px;
 	clear:both;
 	text-align:left;
@@ -106,8 +108,9 @@
 #navPanel {
 	/* background-color:#FFFFDD;*/
 	height:400px;
-	width:100px;
+	width:11.25vw;
 	Padding-top:2px;
+	font-size:1.8vmin;
 	float:left;
 	text-align:left;
 	line-height:150%;
@@ -116,8 +119,9 @@
 #mainPanel {
 	/*background-color:#FFDDDD;*/
 	height:400px;
-	width:500px;
+	width:56.25vw;
 	Padding-top:2px;
+	font-size:1.9vmin;
 	float:left;
 	text-align:left;
 	line-height:120%;
@@ -126,24 +130,26 @@
 #logPanel {
 	background-color:#EEEEFF;
 	height:400px;
-	width:200px;
+	width:22.5vw;
 	padding-top:2px;
+	font-size:1.5vw;
 	float:left;
 	text-align:center;
-	font-size:80%;
 	color:#707070;
 }
 
 #logPanel:first-line {
-	font-weight:bold;
 	font-size:100%;
-	color:#000000;
+}
+
+strong {
+	color:black;
 }
 
 #bottomBar {
 	background-color:#E0E0E0;
 	height:20px;
-	width:800px;
+	width:90vw;
 	Padding-top:2px;
 	clear:both;
 	text-align:center;
@@ -163,6 +169,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+	padding:1px;
 }
 
 .shipSystem:hover {
