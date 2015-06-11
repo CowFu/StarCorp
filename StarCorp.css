@@ -122,8 +122,8 @@ body {
 }  
 
 .shiftup {
-    transform: translate(0,-50px);
-    -webkit-transform: translate(0,-50px);
+    transform: translate(0,-100px);
+    -webkit-transform: translate(0,-100px);
     -o-transform: translate(0,-50px); 
     -moz-transform: translate(0,-50px);
 	    position: relative;
@@ -138,6 +138,7 @@ body {
 }
 
 #playerLog {
+	background-color:rgba(0,0,0,0);
 	text-align:center;
 }
 
@@ -147,6 +148,7 @@ body {
 
 #enemyLog {
 	text-align:center;
+	background-color:rgba(0,0,0,0);
 }
 
 #resources {
