@@ -19,6 +19,8 @@ var flavor = {
 				 "              /---------\\\n             |.---------,|\n|-^~--,      |'---------'|      _-'----',--#\n=~~--. |---/=|___________|=\\-~-|~~~~~~~~~|\n=____||| |[| |@@@+-+|@-@@| |-|#|==- ._--,|]-\n=~~~~||| |[| |@@@+-+|@-@@| |-|#|    '~=='|]-\n=__--' |---\\=|~~~~~~~~~~~|=/-~-|_________|\n|__,--'      |,---------,|    -=\\       /\n              \\_________/        \\_____/==:=--"],
 				//Space
 	enemyShips:["*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
+				//explosion small
+				"\n\n.-.       \n.(      )/   \n( ,  .  .  \\  \n( ;  (.   \   ) \n/:  _ .      . \n(  .   )  )\\  \n.._  . -   ",
 				//Enemy small fighter
 				"\n\n\n__  \n/_|  \n.'----().__]=\n',----,-.__]=\n\\_|  ",
 				//Flying Saucer
@@ -65,6 +67,12 @@ var playerShip = {
 	weaponTimer: 0
 };
 
+var enemyShip = {
+	weaponStrength: 0,
+	shield: 0,
+	weaponDelay: 0,
+}
+
 function testClick(number){ //test function please ignore
 	money += number;
 	document.getElementById("money").innerHTML = money;
@@ -92,6 +100,21 @@ function toLog(newLog) { //adds a new log entry and moves all older log entries 
 	log[0] = newLog;
 	writeLog();
 }
+
+function combatLog(newLog, number) {
+	if(number == 0) {
+		document.getElementById("playerLog").innerHTML = newLog;
+		document.getElementById("playerLog").className = "combatBar visible";
+	}
+	
+	if(number == 1) {
+		document.getElementById("enemyLog").innerHTML = newLog;
+		document.getElementById("enemyLog").className = "combatBar visible";
+	}
+	
+}
+
+
 
 function saveClick() { //menubar save button
 	toLog("Saved!");
@@ -128,10 +151,10 @@ function returnBar(current, max) { //returns an ascii visualization between two 
 
 function shipClick() { //Navbar ship button
 	navSelect(0);
-	var htmlOutput = "<span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(0)\" id=\"selectWeapons\">Weapons</span>&nbsp<span id=\"barWeapons\"></span><br><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(1)\" id=\"selectShields\">Shields</span>&nbsp<span id=\"barShields\"></span><br><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(2)\" id=\"selectEngines\">Engines</span>&nbsp<span id=\"barEngines\"></span><br><br> \
-					  <span class=\"shipSystem\" type=\"button\" onClick=\"systemSelect(3)\" id=\"selectSensors\">Sensors</span>&nbsp<span id=\"barSensors\"></span><p> \
+	var htmlOutput = "<span class=\"shipSystem\" onClick=\"systemSelect(0)\" id=\"selectWeapons\">Weapons</span>&nbsp<span id=\"barWeapons\"></span><br><br> \
+					  <span class=\"shipSystem\" onClick=\"systemSelect(1)\" id=\"selectShields\">Shields</span>&nbsp<span id=\"barShields\"></span><br><br> \
+					  <span class=\"shipSystem\" onClick=\"systemSelect(2)\" id=\"selectEngines\">Engines</span>&nbsp<span id=\"barEngines\"></span><br><br> \
+					  <span class=\"shipSystem\" onClick=\"systemSelect(3)\" id=\"selectSensors\">Sensors</span>&nbsp<span id=\"barSensors\"></span><p> \
 					  Weapon Power:<span id=\"statsWeaponPower\"></span><br> \
 					  Weapon Delay:<span id=\"statsWeaponDelay\"></span><br> \
 					  Current Shields:<span id=\"statsCurrentShield\"></span><br> \
@@ -245,7 +268,9 @@ function devClick() {
 					 <span class=\"menuButton\" onClick=\"addCrew(1)\">Science</span> \
 					 <span class=\"menuButton\" onClick=\"addCrew(2)\">Security</span> \
 					 <span class=\"menuButton\" onClick=\"addCrew(3)\">Navigator</span> \
-					 <span class=\"menuButton\" onClick=\"addCrew(4)\">Engineer</span>";
+					 <span class=\"menuButton\" onClick=\"addCrew(4)\">Engineer</span><p> \
+					 <span class=\"menuButton\" onClick=\"combatLog('You deal 10 damage',0)\">Player 10 Damage</span> \
+					 <span class=\"menuButton\" onClick=\"combatLog('Enemy deals 5 damage',1)\">Enemy 5 Damage</span>";
 					 
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
@@ -363,6 +388,9 @@ function statUpdate() { //recalculates the live stats of the ship
 	playerShip.maxCurrentShields = Math.pow(playerShip.shields * 10, 2);
 	playerShip.topSpeed = Math.round(Math.pow(playerShip.engines * 3,3));
 	playerShip.sensorStrength = Math.pow(playerShip.sensors, 3);
+	
+	document.getElementById("playerLog").className = "combatBar hidden shiftup";
+	document.getElementById("enemyLog").className = "combatBar hidden shiftup";
 	
 	if(currentMenu == 0) {
 		document.getElementById("barWeapons").innerHTML = returnBar(playerShip.weapons, playerShip.maxWeapons);

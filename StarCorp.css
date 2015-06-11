@@ -100,6 +100,55 @@ body {
 	text-align:right;
 }
 
+.combatBar {
+	/* background-color:#DDFFFF;*/
+	background-color:#000000;
+	color:#DDD;
+	font-size:1.7vmin;
+	height:20px;
+	width:22.5vw;
+	Padding-top:2px;
+	float:left;
+}
+
+.visible {
+	color:rgba(255,255,255,1);
+	transform: translate(0,-5px);
+}        
+/* Fade-Out Effect */
+.hidden{
+	color:rgba(0,0,0,0);
+	transition: color 2s linear;
+}  
+
+.shiftup {
+    transform: translate(0,-50px);
+    -webkit-transform: translate(0,-50px);
+    -o-transform: translate(0,-50px); 
+    -moz-transform: translate(0,-50px);
+	    position: relative;
+    transition: all 1.5s linear;
+    -webkit-transition: all 1.5s linear; /** Chrome & Safari **/
+    -moz-transition: all 1.5s linear; /** Firefox **/
+    -o-transition: all 1.5s linear; /** Opera **/
+}
+
+#playerShields {
+	text-align:left;
+}
+
+#playerLog {
+	text-align:center;
+}
+
+#enemyShields {
+	text-align:right;
+}
+
+#enemyLog {
+	text-align:center;
+}
+
 #resources {
 	background-color:#E0E0E0;
 	height:20px;
