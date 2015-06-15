@@ -41,8 +41,9 @@ var mission = {
 	enemySheilds: 0,
 	explorationDistance: 0,
 	scienceReamining: 0,
-	missionLevel: 3,
-	missionType: 1
+	missionLevel: 1,
+	missionType: 1,
+	missionTimer: 4
 };
 
 var playerShip = {
@@ -69,8 +70,10 @@ var playerShip = {
 
 var enemyShip = {
 	weaponStrength: 0,
-	shield: 0,
+	currentShields: 0,
+	maxShields: 0,
 	weaponDelay: 0,
+	weaponTimer: 0
 }
 
 function testClick(number){ //test function please ignore
@@ -101,20 +104,16 @@ function toLog(newLog) { //adds a new log entry and moves all older log entries 
 	writeLog();
 }
 
-function combatLog(newLog, number) {
+function combatLog(newLog, number) { //writes the log to either the player (0) or enemey (1) combat log
 	if(number == 0) {
 		document.getElementById("playerLog").innerHTML = newLog;
 		document.getElementById("playerLog").className = "combatBar visible";
 	}
-	
 	if(number == 1) {
 		document.getElementById("enemyLog").innerHTML = newLog;
 		document.getElementById("enemyLog").className = "combatBar visible";
 	}
-	
 }
-
-
 
 function saveClick() { //menubar save button
 	toLog("Saved!");
@@ -205,7 +204,7 @@ function helpClick() { //Navbar help button
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
-function navSelect(number) {
+function navSelect(number) { //changes background color of selected navigation panel button
 	currentMenu = number;
 	
 	document.getElementById("shipButton").style.backgroundColor = "";
@@ -240,11 +239,11 @@ function navSelect(number) {
 	}
 }
 
-function addResource(resource, number){
+function addResource(resource, number){ //adds an amount of a resource 
 	resources[resource] += number;
 }
 
-function devClick() {
+function devClick() { //dev menu for testing
 	currentMenu = 6;
 	var htmlOutput = "<h3>Dev Menu!</h3>";
 	htmlOutput += 	"<p>Draw Ships</p> \
@@ -275,7 +274,7 @@ function devClick() {
 	document.getElementById("mainPanel").innerHTML = htmlOutput;
 }
 
-function addCrew(number) {
+function addCrew(number) { //adds a crewmember, currently sends random crew toLog
 	
 	var returnString = "";
 		
@@ -347,7 +346,8 @@ function statUpdate() { //recalculates the live stats of the ship
 	
 	document.getElementById("money").innerHTML = resources[0];
 	document.getElementById("science").innerHTML = resources[1];
-	
+	document.getElementById("playerShields").innerHTML = "Shields: (" + playerShip.currentShields + "/" + playerShip.maxCurrentShields + ")";
+
 	switch(playerShip.currentBoost) {
 		
 		case 0: //weapons boost
@@ -383,11 +383,21 @@ function statUpdate() { //recalculates the live stats of the ship
 			toLog("problem with switch/case");
 	}
 	
-	playerShip.weaponStrength = Math.pow(playerShip.weapons, 3);
-	playerShip.weaponDelay = Math.round(Math.pow(.9,playerShip.weapons)*5);
-	playerShip.maxCurrentShields = Math.pow(playerShip.shields * 10, 2);
-	playerShip.topSpeed = Math.round(Math.pow(playerShip.engines * 3,3));
-	playerShip.sensorStrength = Math.pow(playerShip.sensors, 3);
+	if(playerShip.currentShields < playerShip.maxCurrentShields) {
+		playerShip.currentShields += playerShip.shields+ 1;
+		if(playerShip.currentShields > playerShip.maxCurrentShields) {
+			playerShip.currentShields = playerShip.maxCurrentShields;
+		}
+	}
+	if(playerShip.currentShields > playerShip.maxCurrentShields) {
+		playerShip.currentShields -= 2;
+	}
+	
+	playerShip.weaponStrength = Math.pow(playerShip.weapons + 1, 3);
+	playerShip.weaponDelay = Math.round(Math.pow(.9,playerShip.weapons + 1)*5);
+	playerShip.maxCurrentShields = Math.pow((playerShip.shields + 1) * 10, 2);
+	playerShip.topSpeed = Math.round(Math.pow((playerShip.engines + 1) * 3,3));
+	playerShip.sensorStrength = Math.pow((playerShip.sensors + 1), 3);
 	
 	document.getElementById("playerLog").className = "combatBar hidden shiftup";
 	document.getElementById("enemyLog").className = "combatBar hidden shiftup";
@@ -407,39 +417,86 @@ function statUpdate() { //recalculates the live stats of the ship
 	}
 }
 
-function drawEnemy(number) {
+function drawEnemy(number) { //draws the enemyShips[number] ASCII @ enemyShip ID
 	output = "<pre id=\"shipPic\">";
 	if(flavor.enemyShips[number] != undefined){
 		output += flavor.enemyShips[number];
 	} else {
 		output += flavor.enemyShips[0];
 	}
-	output += "</pre>";
+		output += "</pre>";
 	document.getElementById("enemyShip").innerHTML = output;
 }
 
-function drawPlayer(number) {
+function drawPlayer(number) { //draws the playerShips[number] ASCII @ playerShip ID
 	output = "<pre id=\"shipPic\">";
 	if(flavor.playerShips[number] != undefined){
 		output += flavor.playerShips[number];
 	} else {
 		output += flavor.playerShips[0];
 	}
-	output += "</pre>";
+		output += "</pre>";
 	document.getElementById("playerShip").innerHTML = output;
 }
 
-function missionControl() {
+function loadEnemy(){
+	drawEnemy(mission.missionLevel + 1);
+	enemyShip.weaponStrength = mission.missionLevel * 3;
+	enemyShip.currentShields = mission.missionLevel * 20;
+	enemyShip.maxShields = enemyShip.currentShields;
+	enemyShip.weaponDelay = 10 - mission.missionLevel;
+	
+	enemyShip.weaponTimer = enemyShip.weaponDelay;
+	playerShip.weaponTimer = playerShip.weaponDelay;
+	
+}
+
+function missionReward(){
+	
+	resources[0]+= mission.missionLevel * 10;
+	toLog("Recieved $" + mission.missionLevel * 10 + " reward for completing your mission");
+}
+
+function missionControl() { //determines current action taken for the current mission
 	if (gameState == 0 ) { //Travel
-		
+		drawEnemy(0);
 		mission.distance = mission.distance - playerShip.topSpeed;
 		
 		if(mission.distance < 0) {
 			mission.distance = 0;
 		}
-		
+		if(mission.distance == 0) {
+			gameState = mission.missionType;
+			if(mission.missionType == 1) {
+				loadEnemy();
+			}
+		}
 		document.getElementById("missionDistance").innerHTML = mission.distance;
 	} else if (gameState == 1 ) { //combat
+		document.getElementById("enemyShields").innerHTML = "Shields: (" + enemyShip.currentShields + "/" + enemyShip.maxShields + ")";
+		document.getElementById("playerShields").innerHTML = "Shields: (" + playerShip.currentShields + "/" + playerShip.maxCurrentShields + ")";
+		enemyShip.weaponTimer -= 1;
+		playerShip.weaponTimer -= 1;
+		
+		if (playerShip.weaponTimer <= 0) {
+			enemyShip.currentShields -= playerShip.weaponStrength;
+			combatLog("You deal " + playerShip.weaponStrength + " damage",0);
+			playerShip.weaponTimer = playerShip.weaponDelay;
+		}
+		
+		if (enemyShip.currentShields <= 0) {
+			enemyShip.currentshields = 0;
+			document.getElementById("enemyShields").innerHTML = "Shields: (" + 0 + "/" + enemyShip.maxShields + ")";
+			drawEnemy(1);
+			toLog("Enemy Defeated");
+			missionReward();
+			gameState = 4;
+		} else if (enemyShip.weaponTimer <= 0) {
+			playerShip.currentShields -= enemyShip.weaponStrength;
+			combatLog("Enemy hits you for " + enemyShip.weaponStrength + " damage", 1);
+			enemyShip.weaponTimer = enemyShip.weaponDelay;
+		}
+		
 		
 	} else if (gameState == 2 ) { //exploration
 		
@@ -448,14 +505,18 @@ function missionControl() {
 	} 
 	
 	if (gameState == 4 ) { //results decides next mission and resets travel timer
-		toLog("New Mission");
-		mission.missionType = Math.round(Math.random() * 2)+1;
-		mission.distance = Math.floor((Math.round(((Math.random() * 3) + 2)*10)/10) * (Math.pow(mission.missionLevel * 5, 2)));  
-		gameState = 0;
+		mission.missionTimer--;
+		
+		if(mission.missionTimer <= 0) {
+			toLog("Traveling to next mission");
+			mission.distance = 100 + Math.floor((Math.round(((Math.random() * 4) + 3)*10)/10) * (Math.pow(mission.missionLevel * 5, 2)));  
+			gameState = 0;
+			mission.missionTimer = 4;
+		}
 	}
 }
 
-function loadup(){
+function loadup(){ //called by window.onload to run programs on startup of the browser
 	devClick();
 	drawEnemy(0);
 	drawPlayer(0);
