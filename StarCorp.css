@@ -215,7 +215,7 @@ strong {
 	border-radius:4px;
 	border-width: 1px;
 	border-color: #C0C0C0;
-	background-color: #DDDDDD;
+	background-color: #E5E5E5;
 	cursor: pointer; 
 	cursor: hand; 
 	-webkit-touch-callout: none;
@@ -228,17 +228,17 @@ strong {
 }
 
 .shipSystem:hover {
-	background-color:#AAAAAA;
+	background-color:#D3B0B0;
 }
 
 .selectedSystem {
 	border-style:solid;
 	border-radius:5px;
 	border-width: 2px;
-	border-color:#A00000;
+	border-color:#C80000;
 	border-width: 2px;
 	color:black;
-	background-color:#CCAAAA;
+	background-color:#F0C5C5;
 	cursor: pointer; 
 	cursor: hand; 
 	-webkit-touch-callout: none;

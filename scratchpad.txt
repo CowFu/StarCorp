@@ -38,3 +38,13 @@ function addCrew(number) {
 		document.getElementById("scienceButton").style.backgroundColor = "#C0FFC0";
 		document.getElementById("cargoButton").style.backgroundColor = "#C0C0FF";
 		document.getElementById("helpButton").style.backgroundColor = "#C0C0C0";
+
+		
+weapons
+shields
+engines
+sensors
+maxWeapons
+maxShields
+maxEngines
+maxSensors

@@ -9,6 +9,10 @@ var tick = 0;
 //determines the current navmenu so only existing html elements will be updated
 //0:ship 1:crew 2:mission 3:science 4:shop 5:help 10:nothing default
 var currentMenu = 10; 
+//controls the current gamestate, 0:travel 1:combat 2:exploration 3:science 4:results
+var gameState = 4;
+//general purpose toggle that swaps every tick
+var toggle = true;
 
 var flavor = {
 	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"],
@@ -30,12 +34,6 @@ var flavor = {
 	ranks:["Ensign", "LT", "CDR", "LCDR", "LTJG"]
 };
 
-//controls the current gamestate, 0:travel 1:combat 2:exploration 3:science 4:results
-var gameState = 4;
-//general purpose toggle that swaps every tick
-var toggle = true;
-
-
 var mission = {
 	distance: 0,
 	enemySheilds: 0,
@@ -46,26 +44,75 @@ var mission = {
 	missionTimer: 4
 };
 
+var crew = {
+	engineer: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Engineer"],
+	science: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Science"],
+	pilot: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Pilot"],
+	security: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Security officer"],
+	navigator: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Navigator"],
+	operations: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Operations officer"],
+	tactical: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Tactical officer"],
+	doctor: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Doctor"],
+	intelligence: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Intelligence agent"],
+	astrometrics: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Astrometrics officer"],
+}
+
+var rooms = {
+	bridge: [1,1,1,1,2,2,2,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Bridge"],
+}
+
+var ships = {
+	rooms: [2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597],
+	names: ["Escape pod"]
+}
+
 var playerShip = {
+	//main stats
 	weapons: 0,
-	maxWeapons: 3,
 	shields: 0,
-	maxShields: 3,
 	engines: 0,
-	maxEngines: 3,
 	sensors: 0,
-	maxSensors: 3,
-	sensorStrength: 0,
+	maxWeapons: 0,
+	maxShields: 0,
+	maxEngines: 0,
+	maxSensors: 0,
+	//stat modifiers
+	systemBoost: [1,0,0,0],
 	currentBoost: 0,
-	boostBonus: 1,
-	maxCrew: 3,
-	topSpeed: 0,
-	currentCrew: 1,
-	currentShields: 20,
-	maxCurrentShields: 20,
+	boostBonus: 0,
+	//ship rooms
+	maxRooms: 2,
+	currentRooms: 1,
+	roomList: ["Bridge"],
+	roomBonuses: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	//crew
+	currentCrew: [0,0,0,0,0,0,0,0,0,0],
+	crewBonuses: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	maxCrew: 2,
+	crewList: [],
+	//offensive stats
 	weaponDelay: 5,
 	weaponStrength: 0,
-	weaponTimer: 0
+	hitRating: 0,
+	weaponCritHit: 0,
+	weaponCritDam: 0,
+	targetWeapons: 0,
+	targetEngines: 0,
+	targetShields: 0,
+	targetSensors: 0,
+	//defensive stats
+	currentShields: 20,
+	maxCurrentShields: 20,
+	shieldRegen: 0,
+	shieldReduction: 0,
+	dodgeRating: 0,
+	//meta stats  
+	currentShip: 0,
+	topSpeed: 0,
+	moneyMultiplier: 1,
+	scienceMultiplier: 1,
+	weaponTimer: 0,
+	sensorStrength: 0 //needs to go away
 };
 
 var enemyShip = {
@@ -316,18 +363,22 @@ function systemSelect(choice, quiet) { //determines which system is boosted, sec
 	
 	if(choice == 0) {
 		document.getElementById("selectWeapons").className = "selectedSystem";
+		playerShip.systemBoost = [playerShip.boostBonus,0,0,0];
 		playerShip.currentBoost = 0;
 		logger = "More power to the Weapons!";
 	} else if (choice == 1) {
 		document.getElementById("selectShields").className = "selectedSystem";
+		playerShip.systemBoost = [0,playerShip.boostBonus,0,0];
 		playerShip.currentBoost = 1;
 		logger = "Divert power to the Shields! Hurry!";
 	} else if (choice == 2) {
 		document.getElementById("selectEngines").className = "selectedSystem";
+		playerShip.systemBoost = [0,0,playerShip.boostBonus,0];
 		playerShip.currentBoost = 2;
 		logger = "All power to the Engines";
 	} else {
 		document.getElementById("selectSensors").className = "selectedSystem";
+		playerShip.systemBoost = [0,0,0,playerShip.boostBonus];
 		playerShip.currentBoost = 3;
 		logger = "Sensors boosted";
 	};
@@ -339,49 +390,14 @@ function systemSelect(choice, quiet) { //determines which system is boosted, sec
 }
 
 function statUpdate() { //recalculates the live stats of the ship
-	playerShip.shields = 0; //TODO CREW BONUS
-	playerShip.engines = 0;
-	playerShip.sensors = 0;
-	playerShip.weapons = 0;
+	playerShip.weapons = 0 + playerShip.systemBoost[0]; //TODO CREW BONUS
+	playerShip.shields = 0 + playerShip.systemBoost[1];
+	playerShip.engines = 0 + playerShip.systemBoost[2];
+	playerShip.sensors = 0 + playerShip.systemBoost[3];
 	
 	document.getElementById("money").innerHTML = resources[0];
 	document.getElementById("science").innerHTML = resources[1];
 	document.getElementById("playerShields").innerHTML = "Shields: (" + playerShip.currentShields + "/" + playerShip.maxCurrentShields + ")";
-
-	switch(playerShip.currentBoost) {
-		
-		case 0: //weapons boost
-			if(playerShip.weapons + playerShip.boostBonus <= playerShip.maxWeapons) {
-				playerShip.weapons = playerShip.boostBonus;
-			} else {
-				playerShip.weapons = playerShip.maxWeapons;
-			};
-			
-			break;
-		case 1: //shields boost
-			if(playerShip.shields + playerShip.boostBonus <= playerShip.maxShields) {
-				playerShip.shields = playerShip.boostBonus;
-			} else {
-				playerShip.shields = playerShip.maxShields;
-			};
-			break;
-		case 2: //engines boost
-			if(playerShip.engines + playerShip.boostBonus <= playerShip.maxEngines) {
-				playerShip.engines = playerShip.boostBonus;
-			} else {
-				playerShip.engines = playerShip.maxEngines;
-			};
-			break;
-		case 3: //sensors boost
-			if(playerShip.sensors + playerShip.boostBonus <= playerShip.maxSensors) {
-				playerShip.sensors = playerShip.boostBonus;
-			} else {
-				playerShip.sensors = playerShip.maxSensors;
-			};
-			break;
-		default:
-			toLog("problem with switch/case");
-	}
 	
 	if(playerShip.currentShields < playerShip.maxCurrentShields) {
 		playerShip.currentShields += playerShip.shields+ 1;
