@@ -16,19 +16,25 @@ var toggle = true;
 
 var flavor = {
 	crewNames:["Harry Canyon","Anita Glascock","Buck Naked","Ben Dover","Tessa Tickle","Justine Beaver","Rufus Leaking","Kelly Lingus","Anita Softwood","Amanda B. Reckonwith","Peter Guzzinia","Eileen Dover","Pete Moss","Melanie Letters","Fanny Shining","Hilda Climb","Ruth Less","Phil Chambers","Ophelia Marbles","Johnson Long","Dick Mountenjoy","Mel Function","Godiva Headache","Denise Shaking","Jack Offerman","Ethel L. Cahall","Phil Lattio","Connie Lingus","Neal Down","Ben D. Fender","Lance Boyle","Bruce Easley","Juan Morefore DeRhode","Olga Fokyrcelf","Ava Jyna","Harry P. Ness","Janet Uppissass","Dick Smith","Marcus Absent","Annabelle Rang","Marco DeStinkshun","Anita Hanjob","Mason Jarr","Bill Overdew","Elmer Sklue","Kay Mart","Polly Dent","Claire Voyance","Lafayette S. Cadrille","Hugh G. Rection","Arch N. Emmy","Pat Fanny","Sally Mander","Rhoda Mule","Rhea Pollster","Heather N. Yonn","Helen Highwater","Frieda Slaves","Al B. Tross","Teddy Bear","Etta Booger","Robin Droppings","Pepe C. Cola","Agatha L. Outtathere","Forrest Ranger","Bertha D. Blues","Carmen Ghia","Rex Karrs","Anne Teake","Stella Constellation","Phil N. Underwear","Olin DeMotor","Lulu Anna Bitcrazy","Art Exhibit","Eli Ondefloor","Homer Sexual","Ricky T. Ladder","Rod N. Tootheecore","Hammond Eggs","Shirley U. Jest","Anna Septic","Cass Trate","George Washington Sleptier","Hope Ferterbest","Tanya Hyde","Pat Pending","Frank Furter","Frank N. Beans","Dinah Might","Mandy Lifeboats","Allen Rench","Sharon Sharalike","Lotta Zits","Rob A. Bank","Morgan U. Canhandle","Hedda A. Borshun","Joy Anna DeLight","Pat McGroin","Jimmy DeLocke","Laura Norder","Kurt Remarque","May K. Fist","Darryl Likt","Taylor Maid","Perry Mecium","Roger Overandout","Frank N. Sense","Will U. Shuddup","Buddy System","Milton Yermouth"],
-	playerShips:["\n\n\n\n \\____\n~=|__o)\n /",
+	playerShips:[//0: escape pod
+				 "\n\n\n\n \\____\n~=|__o)\n /",
+				 //1: fighter
 				 "\n\n __\n | \\_\n=[_|_)--._____\n=[,--,-------' \n[|_/\"'  ",
+				 //2: Big Rocket
 				 "\n[=====>\n[  (    _____\n \\__\\,-'//   `--._\n  [_/ ||,-----._  \\\\___\n  [_) |||  ()()   ~[___>\n  [_\\_||`-----'   //\n /  /'-.\\\\___,--'===(-\n[  (\n[=====>",
+				 //3: Enterprise
 				 "\n\n _..._________________          ,\n(\ [ ===----====--|__|) ___..--\"_`--.._____\n `&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;| |\"\"` [_\"\"_-___________\"_/\n                | |   /..../`'-._.-'`\n            ____| |__/::..'_\n            |\ \".`\"` '_____\/\/\\\n            `\"'-.   \"\"\"\"\"  \\/\n                 &#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;&#175;",
+				 //4: BattleCruiser
 				 "              /---------\\\n             |.---------,|\n|-^~--,      |'---------'|      _-'----',--#\n=~~--. |---/=|___________|=\\-~-|~~~~~~~~~|\n=____||| |[| |@@@+-+|@-@@| |-|#|==- ._--,|]-\n=~~~~||| |[| |@@@+-+|@-@@| |-|#|    '~=='|]-\n=__--' |---\\=|~~~~~~~~~~~|=/-~-|_________|\n|__,--'      |,---------,|    -=\\       /\n              \\_________/        \\_____/==:=--"],
-				//Space
-	enemyShips:["*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
-				//explosion small
+	enemyShips:[//0: Space
+				"*         \n*                                            * \n\n*                         \n\n\n*   \n*                                  \n\n*                                                *     ",
+				//1: explosion small
 				"\n\n.-.       \n.(      )/   \n( ,  .  .  \\  \n( ;  (.   \   ) \n/:  _ .      . \n(  .   )  )\\  \n.._  . -   ",
-				//Enemy small fighter
+				//2: Enemy small fighter
 				"\n\n\n__  \n/_|  \n.'----().__]=\n',----,-.__]=\n\\_|  ",
-				//Flying Saucer
+				//3: Flying Saucer
 				"\n\n|         \n.-\"^\"-.      \n/_....._\     \n.-\"`         `\"-. \n(  ooo  ooo  ooo  )\n'-.,_________,.-' ",
+				//4: Earth
 				"*  \n*                                          \n    .-''-'-.      \n  ,':::<_,-.`.    \n*             /):::,--,_>\\_\\   \n|::::(      \\_:|  \n|:::::`-.    /:|  \n \\`-.:::;  /::/   \n*                                `.(::::\\/:,'    \n    `-....-'      ",
 				"Ship 4"],
 	ranks:["Ensign", "LT", "CDR", "LCDR", "LTJG"]
@@ -57,9 +63,40 @@ var crew = {
 	astrometrics: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Astrometrics officer"],
 }
 
-var rooms = {
-	bridge: [1,1,1,1,2,2,2,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Bridge"],
-}
+/*  0:Bridge
+	1:
+*/
+var rooms = [[1,1,1,1,2,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,"Bridge"]]
+	/*
+		0: weapons
+		1: shields
+		2: engines
+		3: sensors
+		4: maxWeapons
+		5: maxShields
+		6: maxEngines
+		7: maxsensors
+		8: boostBonus
+		9: currentRooms
+		10: maxCrew
+		11: weaponStrength
+		12: weaponDelay
+		13: hitrating
+		14: weaponCritHit
+		15: weaponCritDam
+		16: targetWeapons  
+		17: targetShields
+		18: targetEngines
+		19: targetSensors
+		20: maxShields
+		21: shieldRegen
+		22: shieldReduction
+		23: dodgeRating
+		24: topSpeed
+		25: moneyMultiplier
+		26: scienceMultiplier		
+	*/
+
 
 var ships = {
 	rooms: [2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597],
@@ -91,8 +128,8 @@ var playerShip = {
 	maxCrew: 2,
 	crewList: [],
 	//offensive stats
-	weaponDelay: 5,
 	weaponStrength: 0,
+	weaponDelay: 5,
 	hitRating: 0,
 	weaponCritHit: 0,
 	weaponCritDam: 0,
@@ -532,10 +569,18 @@ function missionControl() { //determines current action taken for the current mi
 	}
 }
 
+function addRoom(number) {
+	toLog("Constructed a " + rooms[number][27]);
+	for(i=0;i<27;i++){
+		playerShip.roomBonuses[i] += rooms[number][i]);
+	}
+}
+
 function loadup(){ //called by window.onload to run programs on startup of the browser
 	devClick();
 	drawEnemy(0);
 	drawPlayer(0);
+	addRoom(0);
 }
 
 window.onload = loadup;
