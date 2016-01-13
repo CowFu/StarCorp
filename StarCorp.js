@@ -63,10 +63,11 @@ var crew = {
 	astrometrics: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"Astrometrics officer"],
 }
 
-/*  0:Bridge
-	1:
+/*  0:Bridge 1: Engine Room
+	1:Engine Room
 */
-var rooms = [[1,1,1,1,2,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,"Bridge"]]
+var rooms = [[1,1,1,1,2,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,"Bridge"],
+			 [0,0,0,0,0,1,2,0,1,1,0,1,0,0,0,0,0,0,0,0,10,1,0,5,10,0,0,'Engine Room']]
 	/*
 		0: weapons
 		1: shields
@@ -97,7 +98,6 @@ var rooms = [[1,1,1,1,2,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,"Bridge"]]
 		26: scienceMultiplier		
 	*/
 
-
 var ships = {
 	rooms: [2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597],
 	names: ["Escape pod"]
@@ -120,7 +120,7 @@ var playerShip = {
 	//ship rooms
 	maxRooms: 2,
 	currentRooms: 1,
-	roomList: ["Bridge"],
+	roomList: [[0,"Bridge"]],
 	roomBonuses: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	//crew
 	currentCrew: [0,0,0,0,0,0,0,0,0,0],
@@ -569,10 +569,16 @@ function missionControl() { //determines current action taken for the current mi
 	}
 }
 
-function addRoom(number) {
+function addRoom(number, addflag) { //number = room index: addflag 0=delete room 1= addroom
 	toLog("Constructed a " + rooms[number][27]);
-	for(i=0;i<27;i++){
-		playerShip.roomBonuses[i] += rooms[number][i]);
+	if(addflag == 1){
+		for(i=0;i<27;i++){
+			playerShip.roomBonuses[i] += rooms[number][i];
+		}
+	} else if (addflag == 0){
+		for(i=0;i<27;i++){
+			playerShip.roomBonuses[i] -= rooms[number][i];
+		}
 	}
 }
 
@@ -580,7 +586,7 @@ function loadup(){ //called by window.onload to run programs on startup of the b
 	devClick();
 	drawEnemy(0);
 	drawPlayer(0);
-	addRoom(0);
+	addRoom(0, 1);
 }
 
 window.onload = loadup;
