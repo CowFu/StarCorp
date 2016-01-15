@@ -105,18 +105,18 @@ var ships = {
 
 var playerShip = {
 	//main stats
-	weapons: 0,
-	shields: 0,
-	engines: 0,
-	sensors: 0,
-	maxWeapons: 0,
-	maxShields: 0,
-	maxEngines: 0,
-	maxSensors: 0,
+	weapons: 1,
+	shields: 1,
+	engines: 1,
+	sensors: 1,
+	maxWeapons: 3,
+	maxShields: 3,
+	maxEngines: 3,
+	maxSensors: 3,
 	//stat modifiers
 	systemBoost: [1,0,0,0],
 	currentBoost: 0,
-	boostBonus: 0,
+	boostBonus: 1,
 	//ship rooms
 	maxRooms: 2,
 	currentRooms: 1,
